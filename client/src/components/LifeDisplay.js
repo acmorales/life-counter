@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-
 import _ from 'lodash';
 
+import { getRandomColor } from '../shared/helpers';
 import PlayerCard from './PlayerCard';
+
 import '../styles/LifeDisplay.css';
 
 class LifeDisplay extends Component {
-  getRandomColor = () => {
-    const x = Math.floor(Math.random() * 256);
-    const y = Math.floor(Math.random() * 256);
-    const z = Math.floor(Math.random() * 256);
-    return `rgb(${x}, ${y}, ${z})`;
-  }
-
   render() {
     const test = [
       { name: 'Test', life: 23 },
@@ -25,7 +19,7 @@ class LifeDisplay extends Component {
     return (
       <div className="board">
         {_.map(test, (player) => {
-          const color = this.getRandomColor();
+          const color = getRandomColor();
           const styles = {
             backgroundColor: color,
           };

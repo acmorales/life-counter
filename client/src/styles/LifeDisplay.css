@@ -1,13 +1,5 @@
-html {
-  box-sizing: border-box;
-}
-
-body {
-  min-height: 100vh;
-  background-color: gray;
-}
-
 .board {
+  background-color: gray;
   display: grid;
   height: 100vh;
   width: 100vw;
@@ -15,7 +7,8 @@ body {
   grid-auto-rows: minmax(25vw, 1fr);
   align-items: stretch;
   color: white;
-  text-shadow: 2px 2px gray;
+  text-shadow: 0.2vw 0.2vw gray;
+  font-weight: bold;
 }
 
 .player_card {
@@ -31,14 +24,14 @@ body {
   grid-auto-flow: row;
   grid-template-rows: 1fr 1fr;
   text-align: center;
-  font-weight: bold;
 }
 
 .player_life {
   font-size: 10vw;
-  padding-bottom: 10px;
 }
 
 .player_name {
   font-size: 3vw;
+  font-style: italic;
+  padding: 0.1vw;
 }
