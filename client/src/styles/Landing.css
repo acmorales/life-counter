@@ -1,25 +1,67 @@
+button,
+button:active,
+button:focus {
+  background-color: transparent;
+  padding: 1vh 0vh;
+  font-weight: bold;
+  font-size: 5vw;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+input,
+input:active,
+input:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
 .page {
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   align-content: center;
   justify-content: center;
 }
 
+.background {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
+}
+
+.playerForm,
 .menu {
   display: grid;
-  align-content: center;
+  height: 100vh;
   justify-content: center;
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  font-weight: bold;
-  font-size: 5vmax;
-  letter-spacing: 4px;
-  font-style: italic;
+  justify-items: center;
+  align-content: center;
+  position: relative;
 }
 
-.option {
-  padding: 10px;
+.menu>* {
+  position: relative;
+  z-index: 2;
+}
+
+.playerForm>* {
+  background-color: transparent;
+  text-align: center;
+  margin: 1vh;
+  font-weight: bold;
+  font-size: 5vw;
+  text-decoration: none;
+  border: none;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.lifeInput {
+  width: 10vw;
 }

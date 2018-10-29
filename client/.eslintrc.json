@@ -34,6 +34,8 @@
       2,
       "as-needed"
     ],
+    "jsx-a11y/no-autofocus": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
     "no-unused-expressions": [
       2,
       {
