@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import PlayerJoin from './PlayerJoin';
-import { getRandomColor } from '../shared/helpers';
+import { Link } from 'react-router-dom';
 
 import '../styles/Landing.css';
 

@@ -10,8 +10,8 @@ const App = () => (
   <Router>
     <Switch>
       <Route path="/" exact component={Landing} />
-      <Route path="/join/" component={PlayerJoin} />
-      <Route path="/board/" component={LifeDisplay} />
+      <Route path="/join/" exact component={PlayerJoin} />
+      <Route path="/board/" exact component={LifeDisplay} />
       <Route component={Error} />
     </Switch>
   </Router>

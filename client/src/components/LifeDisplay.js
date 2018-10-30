@@ -1,32 +1,58 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import socketClient from 'socket.io-client';
 
-import { getRandomColor } from '../shared/helpers';
 import PlayerCard from './PlayerCard';
 
 import '../styles/LifeDisplay.css';
 
 class LifeDisplay extends Component {
+  constructor(props) {
+    super(props);
+
+    const socket = socketClient('http://192.168.1.66:5000');
+
+    this.state = {
+      players: [],
+    };
+
+    socket.on('listUpdate', (list) => {
+      this.setState({
+        players: list,
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getPlayers();
+    console.log('mounted');
+  }
+
+  getPlayers = async () => {
+    const response = await fetch('/getPlayers');
+    const responseJSON = await response.json();
+
+    if (response.status !== 200) throw Error(responseJSON.message);
+
+    this.setState({
+      players: responseJSON,
+    });
+  }
+
   render() {
-    const test = [
-      { name: 'Test', life: 23 },
-      { name: 'Longer Name', life: 8 },
-      { name: 'Andrew', life: 46 },
-      { name: 'Test', life: 18 },
-      { name: 'Test', life: 100 },
-    ];
+    const { players } = this.state;
 
     return (
       <div className="board">
-        {_.map(test, (player) => {
-          const color = getRandomColor();
+        {_.map(players, (player) => {
+          const { color } = player;
           const styles = {
             backgroundColor: color,
           };
 
           return (
-            <div style={styles}>
-              <PlayerCard name={player.name.toUpperCase()} life={player.life} />
+            <div key={player.id} style={styles}>
+              <PlayerCard key={player.id} name={player.name.toUpperCase()} life={player.life} />
             </div>
           );
         })}

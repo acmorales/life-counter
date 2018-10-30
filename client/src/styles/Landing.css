@@ -9,6 +9,7 @@ button:focus {
   border: none;
   outline: none;
   box-shadow: none;
+  cursor: pointer;
 }
 
 input,
