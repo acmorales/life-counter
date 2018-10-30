@@ -25,7 +25,6 @@ class LifeDisplay extends Component {
 
   componentDidMount() {
     this.getPlayers();
-    console.log('mounted');
   }
 
   getPlayers = async () => {

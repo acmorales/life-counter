@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import socketClient from 'socket.io-client';
 import uuidv4 from 'uuid/v4';
 
@@ -9,13 +10,15 @@ class PlayerJoin extends Component {
   constructor(props) {
     super(props);
 
+    const id = uuidv4();
     const color = getRandomColor();
     const socket = socketClient('http://192.168.1.66:5000');
+
 
     this.state = {
       socket,
       color,
-      id: null,
+      id,
       name: null,
       life: 40,
     };
@@ -37,9 +40,9 @@ class PlayerJoin extends Component {
   }
 
   handleSubmit = () => {
-    const id = uuidv4();
     const {
       socket,
+      id,
       color,
       name,
       life,
@@ -55,7 +58,7 @@ class PlayerJoin extends Component {
   }
 
   render() {
-    const { color, life } = this.state;
+    const { id, color, life } = this.state;
     const styles = {
       backgroundColor: color,
     };
@@ -66,7 +69,7 @@ class PlayerJoin extends Component {
         <form className="playerForm">
           <input className="lifeInput" onChange={(e) => this.handleChange(e, 'life')} defaultValue={life} type="number" />
           <input className="nameInput" onChange={(e) => this.handleChange(e, 'name')} placeholder="Enter name" autoFocus type="text" />
-          <button type="button" onClick={this.handleSubmit}>Submit</button>
+          <Link to={`/dashboard/${id}`}><button type="button" onClick={this.handleSubmit}>Submit</button></Link>
         </form>
       </div>
     );
