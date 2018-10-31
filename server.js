@@ -20,7 +20,6 @@ io.on('connection', (socket) => {
   socket.on('playerJoin', (player) => {
     users.push(player);
     socket.broadcast.emit('listUpdate', users);
-    console.log(player);
   });
 
   socket.on('lifeUpdate', (payload) => {
