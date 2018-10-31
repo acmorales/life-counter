@@ -9,7 +9,7 @@ class Dashboard extends Component {
     super(props);
 
     const { match: { params } } = this.props;
-    const socket = socketClient('http://192.168.1.66:5000');
+    const socket = socketClient('http://localhost:5000');
 
     this.state = {
       socket,

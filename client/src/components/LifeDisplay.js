@@ -10,7 +10,7 @@ class LifeDisplay extends Component {
   constructor(props) {
     super(props);
 
-    const socket = socketClient('http://192.168.1.66:5000');
+    const socket = socketClient('http://localhost:5000');
 
     this.state = {
       players: [],
