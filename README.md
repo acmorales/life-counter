@@ -1,6 +1,6 @@
 ## Running life-counter
 
-After cloning, run `npm run modules` in the root to install all dependencies. Run `npm run start` in the root directory to start the application. The app will be available at `localhost:3000`.
+After cloning, run `npm run modules` in the root directory to install all dependencies. Run `npm run start` in the root directory to start the application. The app will be available at `localhost:3000`.
 
 ***
 
