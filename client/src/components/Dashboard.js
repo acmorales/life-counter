@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import socketClient from 'socket.io-client';
 
 import '../styles/Dashboard.css';
 
@@ -8,8 +7,10 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
 
-    const { match: { params } } = this.props;
-    const socket = socketClient('http://localhost:5000');
+    const {
+      match: { params },
+      socket,
+    } = this.props;
 
     this.state = {
       socket,
@@ -74,6 +75,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   match: PropTypes.shape({}).isRequired,
+  socket: PropTypes.shape({}).isRequired,
 };
 
 export default Dashboard;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import socketClient from 'socket.io-client';
 import uuidv4 from 'uuid/v4';
 
 import { getRandomColor } from '../shared/helpers';
@@ -10,10 +10,9 @@ class PlayerJoin extends Component {
   constructor(props) {
     super(props);
 
+    const { socket } = this.props;
     const id = uuidv4();
     const color = getRandomColor();
-    const socket = socketClient('http://localhost:5000');
-
 
     this.state = {
       socket,
@@ -75,5 +74,9 @@ class PlayerJoin extends Component {
     );
   }
 }
+
+PlayerJoin.propTypes = {
+  socket: PropTypes.shape({}).isRequired,
+};
 
 export default PlayerJoin;

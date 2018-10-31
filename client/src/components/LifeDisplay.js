@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
-import socketClient from 'socket.io-client';
 
 import PlayerCard from './PlayerCard';
 
@@ -10,7 +10,7 @@ class LifeDisplay extends Component {
   constructor(props) {
     super(props);
 
-    const socket = socketClient('http://localhost:5000');
+    const { socket } = this.props;
 
     this.state = {
       players: [],
@@ -59,5 +59,9 @@ class LifeDisplay extends Component {
     );
   }
 }
+
+LifeDisplay.propTypes = {
+  socket: PropTypes.shape({}).isRequired,
+};
 
 export default LifeDisplay;

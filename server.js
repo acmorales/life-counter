@@ -15,11 +15,12 @@ app.get('/user/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
+  console.log(`a user connected: ${socket.id}`);
 
   socket.on('playerJoin', (player) => {
     users.push(player);
     socket.broadcast.emit('listUpdate', users);
+    console.log(player);
   });
 
   socket.on('lifeUpdate', (payload) => {
