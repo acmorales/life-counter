@@ -1,5 +1,4 @@
 var _ = require('lodash');
-// var app = require('express')();
 var express = require('express');
 var app = express();
 var http = require('http').Server(app);
@@ -41,5 +40,5 @@ io.on('connection', (socket) => {
 });
 
 http.listen(PORT, () => {
-  console.log('listening on port 5000');
+  console.log(`listening on port ${PORT}`);
 });
