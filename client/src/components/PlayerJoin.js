@@ -57,10 +57,17 @@ class PlayerJoin extends Component {
   }
 
   render() {
-    const { id, color, life } = this.state;
+    const {
+      id,
+      name,
+      color,
+      life,
+    } = this.state;
     const styles = {
       backgroundColor: color,
     };
+
+    console.log(!name);
 
     return (
       <div className="page" style={styles}>
@@ -68,7 +75,7 @@ class PlayerJoin extends Component {
         <form className="playerForm">
           <input className="lifeInput" onChange={(e) => this.handleChange(e, 'life')} defaultValue={life} type="number" />
           <input className="nameInput" onChange={(e) => this.handleChange(e, 'name')} placeholder="Enter name" autoFocus type="text" />
-          <Link to={`/dashboard/${id}`}><button type="button" onClick={this.handleSubmit}>Submit</button></Link>
+          <Link to={`/dashboard/${id}`}><button type="button" disabled={!name} onClick={this.handleSubmit}>Submit</button></Link>
         </form>
       </div>
     );
