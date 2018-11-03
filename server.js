@@ -1,9 +1,9 @@
 var _ = require('lodash');
-
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+const PORT = process.env.PORT || 5000;
 var users = [];
 
 app.get('/getPlayers/', (req, res) => {
@@ -12,6 +12,10 @@ app.get('/getPlayers/', (req, res) => {
 
 app.get('/user/', (req, res) => {
   res.send(JSON.stringify(_.find(users, (user) => user.id === req.query.userId)));
+});
+
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 
 io.on('connection', (socket) => {
@@ -30,6 +34,6 @@ io.on('connection', (socket) => {
   })
 });
 
-http.listen(5000, () => {
+http.listen(PORT, () => {
   console.log('listening on port 5000');
 });
