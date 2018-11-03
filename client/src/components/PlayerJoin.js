@@ -67,15 +67,13 @@ class PlayerJoin extends Component {
       backgroundColor: color,
     };
 
-    console.log(!name);
-
     return (
       <div className="page" style={styles}>
         <div className="background" onClick={this.handleColorChange} role="button" tabIndex={0} />
         <form className="playerForm">
           <input className="lifeInput" onChange={(e) => this.handleChange(e, 'life')} defaultValue={life} type="number" />
           <input className="nameInput" onChange={(e) => this.handleChange(e, 'name')} placeholder="Enter name" autoFocus type="text" />
-          <Link to={`/dashboard/${id}`}><button type="button" disabled={!name} onClick={this.handleSubmit}>Submit</button></Link>
+          <Link to={`/dashboard/${id}`} style={{ pointerEvents: 'none' }}><button type="button" disabled={!name} onClick={this.handleSubmit}>Submit</button></Link>
         </form>
       </div>
     );
