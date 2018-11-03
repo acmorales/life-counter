@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/acmorales/life-counter/issues"
   },
-  "homepage": "https://still-sierra-35916.herokuapp.com/",
+  "homepage": "https://still-sierra-35916.herokuapp.com",
   "devDependencies": {
     "concurrently": "^4.0.1",
     "nodemon": "^1.18.5"
