@@ -9,7 +9,7 @@ var io = require('socket.io')(http);
 const PORT = process.env.PORT || 5000;
 var users = [];
 
-app.use(express.static(path.join(__dirname + '/client/build/static')));
+app.use(express.static(path.join(__dirname + '/client/build')));
 
 app.get('/getPlayers/', (req, res) => {
   res.send(JSON.stringify(users));
