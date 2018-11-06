@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
+import OpponentCard from './OpponentCard';
 import '../styles/Dashboard.css';
 
 class Dashboard extends Component {
@@ -11,18 +13,24 @@ class Dashboard extends Component {
       match: { params },
       socket,
     } = this.props;
-
+    const { userId } = params;
     this.state = {
       socket,
       userId: params.userId,
       life: null,
-      color: null,
-      name: null,
+      opponents: [],
     };
+
+    socket.on('listUpdate', (list) => {
+      this.setState({
+        opponents: _.filter(list, (player) => player.id !== userId),
+      });
+    });
   }
 
   componentDidMount() {
     this.getInfo();
+    this.getPlayers();
   }
 
   getInfo = async () => {
@@ -32,11 +40,23 @@ class Dashboard extends Component {
 
     if (response.status !== 200) throw Error(responseJSON.message);
 
-    const { life, color, name } = responseJSON;
+    const { life } = responseJSON;
     this.setState({
       life,
-      color,
-      name,
+      // color,
+      // name,
+    });
+  }
+
+  getPlayers = async () => {
+    const { userId } = this.state;
+    const response = await fetch('/getPlayers');
+    const responseJSON = await response.json();
+
+    if (response.status !== 200) throw Error(responseJSON.message);
+
+    this.setState({
+      opponents: _.filter(responseJSON, (player) => player.id !== userId),
     });
   }
 
@@ -56,18 +76,20 @@ class Dashboard extends Component {
   }
 
   render() {
-    const {
-      userId,
-      name,
-      color,
-      life,
-    } = this.state;
+    const { opponents, userId, life } = this.state;
 
     return (
-      <div className="dashboard">
-        <button onClick={() => this.handleLifeChange(-1)} type="button">-</button>
-        <p>{life}</p>
-        <button onClick={() => this.handleLifeChange(1)} type="button">+</button>
+      <div className="page">
+        <div className="opponentData">
+          {_.map(opponents, (player) => (<OpponentCard key={userId} color={player.color} life={player.life} />))}
+        </div>
+        <div className="dashboard">
+          <div className="life">{life}</div>
+          <div className="updateButtons">
+            <div onClick={() => this.handleLifeChange(-1)} role="button" tabIndex={0} />
+            <div onClick={() => this.handleLifeChange(1)} role="button" tabIndex={0} />
+          </div>
+        </div>
       </div>
     );
   }

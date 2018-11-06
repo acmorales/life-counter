@@ -1,7 +1,50 @@
+.page {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+}
+
 .dashboard {
-  grid-auto-flow: column;
   display: grid;
   align-content: center;
   justify-content: center;
   height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+
+.opponentData {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-items: center;
+  height: 5vmax;
+  width: 100vw;
+  font-size: 3vmax;
+  font-weight: bold;
+  position: absolute;
+  z-index: 2;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: 1vh 1fr;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.life {
+  font-size: 15vmax;
+  font-weight: bold;
+  position: relative;
+}
+
+.updateButtons {
+  display: grid;
+  grid-auto-flow: column;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 1;
 }
