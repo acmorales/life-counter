@@ -74,7 +74,7 @@ class PlayerJoin extends Component {
           <input className="lifeInput" onChange={(e) => this.handleChange(e, 'life')} defaultValue={life} type="number" />
           <input className="nameInput" onChange={(e) => this.handleChange(e, 'name')} placeholder="Enter name" autoFocus type="text" />
           <Link to={`/dashboard/${id}`} style={name ? null : { pointerEvents: 'none' }}>
-            <button type="button" disabled={!name} onClick={this.handleSubmit}>Submit</button>
+            <button type="button" style={name ? { color: 'white' } : null} disabled={!name} onClick={this.handleSubmit}>GO</button>
           </Link>
         </form>
       </div>

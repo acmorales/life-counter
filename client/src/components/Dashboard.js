@@ -80,9 +80,11 @@ class Dashboard extends Component {
 
     return (
       <div className="page">
-        <div className="opponentData">
-          {_.map(opponents, (player) => (<OpponentCard key={userId} color={player.color} life={player.life} />))}
-        </div>
+        {opponents.length > 0 && (
+          <div className="opponentData">
+            {_.map(opponents, (player) => (<OpponentCard key={userId} color={player.color} life={player.life} />))}
+          </div>
+        )}
         <div className="dashboard">
           <div className="life">{life}</div>
           <div className="updateButtons">

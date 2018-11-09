@@ -22,6 +22,7 @@
   width: 100vw;
   font-size: 3vmax;
   font-weight: bold;
+  box-shadow: 0px 2px 10px gray;
   position: absolute;
   z-index: 2;
 }
@@ -32,6 +33,7 @@
   height: 100%;
   width: 100%;
   text-align: center;
+  border-right: 1px dashed gray;
 }
 
 .life {
