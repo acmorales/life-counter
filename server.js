@@ -19,7 +19,6 @@ app.get('/user/', (req, res) => {
 });
 
 app.get('*', (req,res) => {
-  console.log('here');
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
@@ -28,31 +27,31 @@ io.on('connection', (socket) => {
 
   socket.on('playerJoin', (player) => {
     users.push(player);
-    socket.broadcast.emit('listUpdate', users);
+    io.emit('listUpdate', users);
   });
 
   socket.on('increment', (payload) => {
     var user = _.find(users, (user) => user.id === payload.userId);
     user.life++;
-    socket.emit('listUpdate', users);
+    io.emit('listUpdate', users);
   });
 
   socket.on('decrement', (payload) => {
     var user = _.find(users, (user) => user.id === payload.userId);
     user.life--;
-    socket.emit('listUpdate', users);
+    io.emit('listUpdate', users);
   });
 
   socket.on('incrementFive', (payload) => {
     var user = _.find(users, (user) => user.id === payload.userId);
     user.life += 5;
-    socket.emit('listUpdate', users);
+    io.emit('listUpdate', users);
   });
 
   socket.on('decrementFive', (payload) => {
     var user = _.find(users, (user) => user.id === payload.userId);
     user.life -= 5;
-    socket.emit('listUpdate', users);
+    io.emit('listUpdate', users);
   });
 });
 
