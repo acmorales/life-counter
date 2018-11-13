@@ -19,10 +19,14 @@ class Dashboard extends Component {
       userId: params.userId,
       life: null,
       opponents: [],
+      timer: null,
+      longPressActivated: false,
     };
 
     socket.on('listUpdate', (list) => {
+      const currUser = _.find(list, (user) => user.id === userId);
       this.setState({
+        life: currUser.life,
         opponents: _.filter(list, (player) => player.id !== userId),
       });
     });
@@ -60,19 +64,47 @@ class Dashboard extends Component {
     });
   }
 
-  handleLifeChange = (update) => {
+  handleIncrement = () => {
     const { socket, userId, life } = this.state;
-    const newVal = life + update;
-    const payload = {
-      userId,
-      life: newVal,
-    };
 
-    socket.emit('lifeUpdate', payload);
+    socket.emit('increment', { userId, life });
+  }
+
+  handleDecrement = () => {
+    const { socket, userId, life } = this.state;
+
+    socket.emit('decrement', { userId, life });
+  }
+
+  handleButtonPress = (func) => {
+    this.setState({
+      timer: setInterval(() => this.interval(func), 500),
+    });
+  }
+
+  handleButtonRelease = () => {
+    const { timer } = this.state;
+    clearTimeout(timer);
+  }
+
+  captureClick = (e) => {
+    const { longPressActivated } = this.state;
+    if (longPressActivated) {
+      e.stopPropagation(); // do not fire onClick if press and hold
+      this.setState({
+        longPressActivated: false,
+      });
+    }
+  }
+
+  interval = (func) => {
+    const { socket, userId, life } = this.state;
 
     this.setState({
-      life: newVal,
+      longPressActivated: true,
     });
+
+    socket.emit(func, { userId, life });
   }
 
   render() {
@@ -85,11 +117,27 @@ class Dashboard extends Component {
             {_.map(opponents, (player) => (<OpponentCard key={userId} color={player.color} life={player.life} />))}
           </div>
         )}
-        <div className="dashboard">
+        <div className="dashboard" onClickCapture={this.captureClick}>
           <div className="life">{life}</div>
           <div className="updateButtons">
-            <div onClick={() => this.handleLifeChange(-1)} role="button" tabIndex={0} />
-            <div onClick={() => this.handleLifeChange(1)} role="button" tabIndex={0} />
+            <div
+              onClick={this.handleDecrement}
+              onTouchStart={() => this.handleButtonPress('decrementFive')}
+              onTouchEnd={this.handleButtonRelease}
+              onMouseDown={() => this.handleButtonPress('decrementFive')}
+              onMouseUp={this.handleButtonRelease}
+              role="button"
+              tabIndex={0}
+            />
+            <div
+              onClick={this.handleIncrement}
+              onTouchStart={() => this.handleButtonPress('incrementFive')}
+              onTouchEnd={this.handleButtonRelease}
+              onMouseDown={() => this.handleButtonPress('incrementFive')}
+              onMouseUp={this.handleButtonRelease}
+              role="button"
+              tabIndex={0}
+            />
           </div>
         </div>
       </div>

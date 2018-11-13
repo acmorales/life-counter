@@ -31,12 +31,29 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('listUpdate', users);
   });
 
-  socket.on('lifeUpdate', (payload) => {
+  socket.on('increment', (payload) => {
     var user = _.find(users, (user) => user.id === payload.userId);
-    user.life = payload.life;
+    user.life++;
+    socket.emit('listUpdate', users);
+  });
 
-    socket.broadcast.emit('listUpdate', users);
-  })
+  socket.on('decrement', (payload) => {
+    var user = _.find(users, (user) => user.id === payload.userId);
+    user.life--;
+    socket.emit('listUpdate', users);
+  });
+
+  socket.on('incrementFive', (payload) => {
+    var user = _.find(users, (user) => user.id === payload.userId);
+    user.life += 5;
+    socket.emit('listUpdate', users);
+  });
+
+  socket.on('decrementFive', (payload) => {
+    var user = _.find(users, (user) => user.id === payload.userId);
+    user.life -= 5;
+    socket.emit('listUpdate', users);
+  });
 });
 
 http.listen(PORT, () => {
